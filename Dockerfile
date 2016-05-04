@@ -1,6 +1,7 @@
 FROM debian:wheezy
 MAINTAINER Eduardo Franceschi <eduardo.franceschi@wiseinformatica.com>
 EXPOSE 24007
+EXPOSE 24008
 
 # Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
@@ -25,5 +26,5 @@ RUN chmod a+x /etc/init.sh
 # Clean
 RUN apt-get clean
 
-CMD /etc/init.sh
+ENTRYPOINT /etc/init.sh
 
