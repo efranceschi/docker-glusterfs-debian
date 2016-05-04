@@ -7,11 +7,11 @@ EXPOSE 24008
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 # Gluster repository key
-ADD http://download.gluster.org/pub/gluster/glusterfs/LATEST/rsa.pub /tmp
+ADD http://download.gluster.org/pub/gluster/glusterfs/3.5/3.5.2/Debian/wheezy/pubkey.gpg /tmp
 RUN apt-key add /tmp/rsa.pub && rm -f /tmp/rsa.pub
 
 # Add gluster debian repo
-RUN echo deb http://download.gluster.org/pub/gluster/glusterfs/LATEST/Debian/wheezy/apt wheezy main > /etc/apt/sources.list.d/gluster.list
+RUN echo deb http://download.gluster.org/pub/gluster/glusterfs/3.5/3.5.2/Debian/wheezy/apt wheezy main > /etc/apt/sources.list.d/gluster.list
 
 # Update package cache
 RUN apt-get update
