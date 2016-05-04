@@ -1,0 +1,29 @@
+FROM debian:wheezy
+MAINTAINER Eduardo Franceschi <eduardo.franceschi@wiseinformatica.com>
+EXPOSE 24007
+
+# Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
+RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
+
+# Gluster repository key
+ADD http://download.gluster.org/pub/gluster/glusterfs/LATEST/rsa.pub /tmp
+RUN apt-key add /tmp/rsa.pub && rm -f /tmp/rsa.pub
+
+# Add gluster debian repo
+RUN echo deb http://download.gluster.org/pub/gluster/glusterfs/LATEST/Debian/wheezy/apt wheezy main > /etc/apt/sources.list.d/gluster.list
+
+# Update package cache
+RUN apt-get update
+
+# Install Gluster
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install glusterfs-server
+
+# Copy init script
+COPY init.sh /etc/init.sh
+RUN chmod a+x /etc/init.sh
+
+# Clean
+RUN apt-get clean
+
+CMD /etc/init.sh
+
