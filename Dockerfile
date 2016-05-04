@@ -8,7 +8,7 @@ RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
 
 # Gluster repository key
 ADD http://download.gluster.org/pub/gluster/glusterfs/3.5/3.5.2/Debian/wheezy/pubkey.gpg /tmp
-RUN apt-key add /tmp/rsa.pub && rm -f /tmp/rsa.pub
+RUN apt-key add /tmp/pubkey.gpg && rm -f /tmp/pubkey.gpg
 
 # Add gluster debian repo
 RUN echo deb http://download.gluster.org/pub/gluster/glusterfs/3.5/3.5.2/Debian/wheezy/apt wheezy main > /etc/apt/sources.list.d/gluster.list
